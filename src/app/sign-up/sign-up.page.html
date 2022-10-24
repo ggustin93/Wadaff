@@ -1,0 +1,48 @@
+<ion-content>
+  <ion-grid style="height: 100%"><ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%"><ion-col>
+    <ion-card class="sign-up-card">
+
+      <img alt="wadaff-logo" src="/assets/party_bis.jpg"/>
+
+      <ion-card-content>
+        <ion-card-title>
+          Register
+        </ion-card-title>
+
+        <p>Don't miss the gigs you love. Join us!</p>
+
+        <div class="ion-margin-top credential-input-div">
+          <ion-item>
+            <ion-input type="text" placeholder="Email" clearInput [value]="email" #emailInput required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" placeholder="Password" #passwordInput required></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button expand="full" color="dark" (click)="authService.SignUp(emailInput.value, passwordInput.value)">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          Register with my email
+        </ion-button>
+
+        <!-- Calling GoogleAuth Api from AuthService -->
+        <ion-button class="ion-margin-top" expand="full" color="google" (click)="authService.GoogleAuth()">
+          <ion-icon name="logo-google" slot="start"></ion-icon>
+          Register with Google
+        </ion-button>
+
+        <!-- Calling FacebookAuth Api from AuthService -->
+        <ion-button expand="full" color="facebook" (click)="authService.FacebookAuth()">
+          <ion-icon name="logo-facebook" slot="start"></ion-icon>
+          Register with Facebook
+        </ion-button>
+
+        <div class="ion-margin-top ion-text-center">
+          <ion-label>Already have an account? </ion-label>
+          <ion-label color="secondary" routerDirection="back" routerLink="/sign-in"><u>Log-in</u></ion-label>
+        </div>
+      </ion-card-content>
+
+    </ion-card>
+  </ion-col></ion-row></ion-grid>
+</ion-content>

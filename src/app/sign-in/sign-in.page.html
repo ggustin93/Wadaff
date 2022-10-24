@@ -1,0 +1,54 @@
+<ion-content>
+  <ion-grid style="height: 100%"><ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%"><ion-col>
+    <ion-card class="sign-in-card">
+
+      <img alt="wadaff-logo" src="/assets/party_bis.jpg"/>
+
+      <ion-card-content>
+        <ion-card-title>
+          Login
+        </ion-card-title>
+        <p>
+          Please log-in to continue using Wadaff
+        </p>
+
+        <div class="ion-margin-top credential-input-div">
+          <ion-item>
+            <ion-input type="text" placeholder="Email" #emailInput (change)="email = emailInput.value" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" placeholder="Password" #passwordInput required></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button color="dark" expand="full" (click)="authService.SignIn(emailInput.value, passwordInput.value)">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          Log in with my email
+        </ion-button>
+
+        <!-- Calling GoogleAuth Api from AuthService -->
+        <ion-button class="ion-margin-top" color="google" expand="full" (click)="authService.GoogleAuth()">
+          <ion-icon name="logo-google" slot="start"></ion-icon>
+          Log in with Google
+        </ion-button>
+
+        <!-- Calling FacebookAuth Api from AuthService -->
+        <ion-button color="facebook" expand="full" (click)="authService.FacebookAuth()">
+          <ion-icon name="logo-facebook" slot="start"></ion-icon>
+          Log in with Facebook
+        </ion-button>
+
+        <div class="ion-margin-top ion-text-center">
+          <ion-label color="secondary" (click)="navigateTo('/forgot-password')">
+            <u>Forgot Password?</u><br>
+          </ion-label>
+          <ion-label>Don't have an account? </ion-label>
+          <ion-label color="secondary" (click)="navigateTo('/sign-up')">
+            <u> Sign Up </u>
+          </ion-label>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+  </ion-col></ion-row></ion-grid>
+</ion-content>

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "wadaff",
+    "wadaff_dev": "wadaff"
+  }
+}

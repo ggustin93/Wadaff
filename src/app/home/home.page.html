@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-segment mode="ios" [(ngModel)]="events_view" color="secondary">
+      <ion-segment-button (click)="events_view = 'map'" value="map" layout="icon-bottom">
+        <ion-icon name="map"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button (click)="events_view = 'list'" value="list" layout="icon-bottom">
+        <ion-icon name="list"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons slot="end">
+      <ion-button (click)="filter();">
+        <ion-icon mode="ios" name="funnel"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding full-screen>
+  <!-- <ion-searchbar [hidden]="!header_view" #search> </ion-searchbar> -->
+
+  <ion-searchbar [hidden]="!header_view" [(ngModel)]="autocomplete" debounce="1000"></ion-searchbar>
+
+  <ion-item center lines="full" [hidden]="events_view == 'list'">
+    <ion-icon item-left name="navigate" color="primary" style="font-size:26px;padding-right:0.5em;"></ion-icon>
+    <ion-label item-right color="dark" text-wrap>
+      {{address}}
+    </ion-label>
+  </ion-item>
+
+  <div [hidden]="events_view == 'list'">
+
+
+    <agm-map #gm [styles]="agm_style" [style.height.px]="height" [latitude]="latitude" [longitude]="longitude"
+      [zoom]="zoom">
+<!--      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"-->
+<!--        (dragEnd)="markerDragEnd($event)" (mouseOver)="onMouseOver(infoWindow,gm)" (mouseOut)="close();">-->
+<!--      </agm-marker> FIXME: I commented this to get a successful build-->
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+      </agm-marker>
+
+      <agm-marker *ngFor="let e of events;let i = index" [latitude]="e.lat" [longitude]="e.lg" [animation]="'DROP'"
+         [iconUrl]="
+        {
+          url: '/assets/icon/icon_bis.svg',
+          scaledSize: {
+              width: 55,
+              height: 55
+          }
+        }">
+
+        <agm-info-window [disableAutoPan]="true" #infoWindow class="ion-no-padding ion-no-margin">
+
+                <ion-list-header color="secondary">
+                    {{e.title}}
+                </ion-list-header>
+
+
+              <ion-item detail>
+                  <ion-label item-left size="large"> {{e.score}} </ion-label>
+                  <ion-icon color="tertiary" size="small" name="star"> </ion-icon>
+                <ion-badge>
+                    <ion-label class="ion-text-wrap">
+                      #deephouse
+                    </ion-label>
+                  </ion-badge>
+              </ion-item>
+
+        </agm-info-window>
+
+      </agm-marker>
+
+
+    </agm-map>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="primary" (click)="addEvent();">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button (click)="setCurrentLocation();" color="secondary">
+        <ion-icon name="locate"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <div [hidden]="events_view == 'map'">
+
+    <div *ngFor="let event of events;let i = index">
+
+    <ion-card class="ion-no-padding ion-no-margin">
+
+        <div class="container">
+          <img src="https://picsum.photos/id/{{i+107}}/1100/500">
+
+          <div class="top-left">
+            <ion-badge> #deephouse </ion-badge>
+            <ion-badge> #jazzy </ion-badge>
+            <ion-badge> #bxvibes </ion-badge>
+          </div>
+          <div class="top-centered-padding">
+            <ion-icon color="medium" name="time"></ion-icon>
+            <ion-label color="medium"> 20:00 - 03:00</ion-label>
+          </div>
+          <div class="centered title">
+            <ion-label> {{event.title}}</ion-label>
+          </div>
+          <div class="right-centered">
+            <ion-icon color="primary" name="arrow-forward"></ion-icon>
+          </div>
+          <div class="bottom-centered">
+            <ion-label color="medium"> {{event.address}}</ion-label>
+          </div>
+          <div class="bottom-right">
+            <ion-icon color="medium" name="navigate"></ion-icon>
+            <ion-label> 0.5 km</ion-label>
+          </div>
+          <div class="bottom-left">
+            <ion-icon color="medium" name="contacts"></ion-icon>
+            <ion-label> 5 friends </ion-label>
+          </div>
+
+        </div>
+
+        <ion-row>
+          <ion-col>
+            <ion-button color="secondary" icon-start fill="clear" size="small">
+              <!-- <ion-icon slot="start" name="thumbs-up"></ion-icon> -->
+              <ion-icon slot="start" color="tertiary" name="star"></ion-icon>
+
+              <div color="medium">{{event.score}} </div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" icon-start fill="clear" size="small">
+              <ion-icon slot="start" name="text"> </ion-icon>
+              <div> {{event.score/3 | number:'1.0-0'}} </div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" icon-start fill="clear" size="small">
+              <ion-icon name="bookmark"></ion-icon>
+              <div></div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" icon-start fill="clear" size="small">
+              <ion-icon name="md-share"></ion-icon>
+              <div></div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    </div>
+  </div>
+
+
+
+</ion-content>

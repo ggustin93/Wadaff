@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="center"> Test Geolocation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="center">
+    <ion-label color="secondary" padding> NB. These are locations from {{mail}}
+    </ion-label>
+    <!-- List of Input Items -->
+
+  </div>
+  <ion-card>
+    <ion-list-header color="dark">
+      <ion-label>Background Geolocation</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Plugin 1</ion-label>
+      <ion-toggle [disabled]="true" [(ngModel)]="plugin1_enabled"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="danger"
+            (click)="startBackgroundGeolocation()">Start</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" color="secondary"
+            (click)="stopBackgroundGeolocation()">Stop</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div>
+        <ion-row>
+          <ion-col>
+            <ion-list-header > Latitude</ion-list-header>
+          </ion-col>
+          <ion-col>
+            <ion-list-header > Longitude </ion-list-header>
+          </ion-col>
+          <ion-col>
+            <ion-list-header > Time</ion-list-header>
+          </ion-col>
+        </ion-row>
+  
+        <ion-grid *ngFor="let l of locations1">
+          <ion-row *ngIf="l.mail == mail">
+            <ion-col>
+              {{l.lat}}
+            </ion-col>
+            <ion-col>
+              {{l.lg}}
+            </ion-col>
+            <ion-col>
+              {{l.ts.toDate() | date:'HH:mm - dd/MM' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-list-header color="dark">
+      <ion-label>Background Mode + Geolocation</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Plugin 2</ion-label>
+      <ion-toggle [disabled]="true" [(ngModel)]="plugin2_enabled"></ion-toggle>
+    </ion-item>
+
+    <div>
+        <ion-row>
+          <ion-col>
+            <ion-list-header > Latitude</ion-list-header>
+          </ion-col>
+          <ion-col>
+            <ion-list-header > Longitude </ion-list-header>
+          </ion-col>
+          <ion-col>
+            <ion-list-header > Time</ion-list-header>
+          </ion-col>
+        </ion-row>
+  
+        <ion-grid *ngFor="let l of locations2">
+          <ion-row *ngIf="l.mail == mail">
+            <ion-col>
+              {{l.lat}}
+            </ion-col>
+            <ion-col>
+              {{l.lg}}
+            </ion-col>
+            <ion-col>
+              {{l.ts.toDate() | date:'HH:mm - dd/MM' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+  </ion-card>
+
+
+  <ion-card>
+    <ion-list-header color="dark">
+      <ion-label>Foreground Home Geolocation</ion-label>
+    </ion-list-header>
+
+    <div>
+      <ion-row>
+        <ion-col>
+          <ion-list-header > Latitude</ion-list-header>
+        </ion-col>
+        <ion-col>
+          <ion-list-header > Longitude </ion-list-header>
+        </ion-col>
+        <ion-col>
+          <ion-list-header > Time</ion-list-header>
+        </ion-col>
+      </ion-row>
+
+      <ion-grid *ngFor="let l of locations3">
+        <ion-row *ngIf="l.mail == mail">
+          <ion-col>
+            {{l.lat}}
+          </ion-col>
+          <ion-col>
+            {{l.lg}}
+          </ion-col>
+          <ion-col>
+            {{l.ts.toDate() | date:'HH:mm - dd/MM' }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+
+
+
+</ion-content>

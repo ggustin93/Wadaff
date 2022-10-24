@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title> Add event </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+      <ion-list-header mode="ios" color="medium"> 
+         <ion-label class="center">  This modal is just for testing purpose 😉 </ion-label>
+      </ion-list-header>
+  <ion-card class="welcome-card" no-padding>
+    <img src="/assets/party_bis.jpg" alt="" />
+  </ion-card>
+
+
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" position="fixed">Title</ion-label>
+      <ion-input placeholder="Name your event" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="fixed">Score</ion-label>
+      <!-- <ion-input [(ngModel)]="score"></ion-input> -->
+      <div style="text-align:left !important">
+        <ionic4-star-rating #rating
+          activeIcon="ios-star"
+          defaultIcon="ios-star-outline"
+          activeColor="var(--ion-color-tertiary)"
+          defaultColor="#f4f4f4"
+          readonly="false"
+          rating="0"
+          maxRating="3"
+          fontSize="32px"
+          (ratingChanged)="logRatingChange($event)">
+        </ionic4-star-rating>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="fixed">Adresse</ion-label>
+      {{address}}
+    </ion-item>
+    <!-- <ion-item>
+          <ion-label  color="primary" position="fixed">Latitude</ion-label>
+         {{latitude}}
+      </ion-item>
+      <ion-item>
+          <ion-label  color="primary" position="fixed">Longitude</ion-label>
+         {{longitude}}
+      </ion-item> -->
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="danger" (click)="closeModal()">Cancel</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="secondary" (click)="addEvent()">Add</ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

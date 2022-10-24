@@ -1,0 +1,7 @@
+{
+  "name": "wadaff",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
